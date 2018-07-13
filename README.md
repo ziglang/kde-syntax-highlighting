@@ -6,5 +6,4 @@ In order to test it, it has to be placed in `/usr/share/katepart5/syntax/` or `$
 
 ## Missing Features
 
- * it doesn't support multiline strings
  * keywords and other syntax are not auto generated from zig compiler introspection

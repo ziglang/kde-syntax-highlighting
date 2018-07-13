@@ -15,6 +15,7 @@
         <item>fn</item>
         <item>for</item>
         <item>if</item>
+        <item>inline</item>
         <item>pub</item>
         <item>return</item>
         <item>test</item>
@@ -22,6 +23,7 @@
         <item>struct</item>
         <item>switch</item>
         <item>union</item>
+        <item>use</item>
         <item>var</item>
         <item>while</item>
     </list>
@@ -92,19 +94,22 @@
             <RegExpr String="[0-9]+.[0-9]+" attribute="Float" context="#stay"/>
             <RegExpr String="[0-9]+.[0-9]+[eE][+-]?[0-9]+" attribute="Float" context="#stay"/>
             <RegExpr String="[0-9]+.[eE][+-]?[0-9]+" attribute="Float" context="#stay"/>
-            <RegExpr String="[_a-zA-Z][_a-zA-Z0-9]*" attribute="Normal Text" context="#stay"/>
-            <RegExpr String="@[_a-zA-Z][_a-zA-Z0-9]*" attribute="Builtin Function" context="#stay"/>
-            <RegExpr String="'(\\([nrt]|x[0-9a-fA-F]{2})|[^'\\])'" attribute="Character" context="#stay"/>
+            <RegExpr String="'(\\([nrt\\'&quot;]|x[0-9a-fA-F]{2})|[^'\\])'" attribute="Character" context="#stay"/>
             <DetectChar char="{" attribute="Symbol" context="#stay" beginRegion="Brace"/>
             <DetectChar char="}" attribute="Symbol" context="#stay" endRegion="Brace"/>
             <DetectChar char="&quot;" attribute="String" context="String" />
             <Detect2Chars char="c" char1="&quot;" attribute="String" context="String"/>
             <Detect2Chars char="@" char1="&quot;" attribute="String" context="String"/>
+            <Detect2Chars char="\" char1="\" attribute="String" context="Multiline String"/>
+            <StringDetect String="c\\" attribute="String" context="Multiline String"/>
+            <RegExpr String="[_a-zA-Z][_a-zA-Z0-9]*" attribute="Normal Text" context="#stay"/>
+            <RegExpr String="@[_a-zA-Z][_a-zA-Z0-9]*" attribute="Builtin Function" context="#stay"/>
         </context>
         <context attribute="String" lineEndContext="#stay" name="String">
-            <RegExpr String="\\([\&quot;nrt]|x[0-9a-fA-F]{2})" attribute="Escape" context="#stay"/>
+            <RegExpr String="\\([nrt\\'&quot;]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{6})" attribute="Escape" context="#stay"/>
             <DetectChar char="&quot;" attribute="String" context="#pop"/>
         </context>
+        <context attribute="String" lineEndContext="#pop" name="Multiline String"/>
         <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
     </contexts>
     <itemDatas>
