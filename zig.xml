@@ -3,6 +3,8 @@
 <language name="Zig" version="1" kateversion="5.0" section="Sources" extensions="*.zig" mimetype="text/zig" priority="5">
 <highlighting>
     <list name="keywords">
+        <item>async</item>
+        <item>cancel</item>
         <item>catch</item>
         <item>comptime</item>
         <item>const</item>
@@ -18,6 +20,8 @@
         <item>inline</item>
         <item>pub</item>
         <item>return</item>
+        <item>resume</item>
+        <item>suspend</item>
         <item>test</item>
         <item>try</item>
         <item>struct</item>
