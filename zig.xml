@@ -132,7 +132,9 @@
             <DetectChar char="&quot;" attribute="String" context="#pop"/>
         </context>
         <context attribute="String" lineEndContext="#pop" name="Multiline String"/>
-        <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
+        <context attribute="Comment" lineEndContext="#pop" name="Comment">
+            <IncludeRules context="##Alerts"/>
+        </context>
     </contexts>
     <itemDatas>
         <itemData name="Normal Text" defStyleNum="dsNormal"/>
