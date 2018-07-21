@@ -98,9 +98,9 @@
             <keyword String="constants" attribute="Constant" context="#stay"/>
             <Detect2Chars char="/" char1="/" attribute="Comment" context="Comment"/>
             <RegExpr String="0b[01]+" attribute="Binary" context="#stay"/>
-            <RegExpr String="[0-9]+" attribute="Decimal" context="#stay"/>
             <RegExpr String="0o[0-7]+" attribute="Octal" context="#stay"/>
             <RegExpr String="0x[0-9a-fA-F]+" attribute="Hex" context="#stay"/>
+            <RegExpr String="[0-9]+" attribute="Decimal" context="#stay"/>
             <RegExpr String="[0-9]+.[0-9]+" attribute="Float" context="#stay"/>
             <RegExpr String="[0-9]+.[0-9]+[eE][+-]?[0-9]+" attribute="Float" context="#stay"/>
             <RegExpr String="[0-9]+.[eE][+-]?[0-9]+" attribute="Float" context="#stay"/>
