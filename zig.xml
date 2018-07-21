@@ -109,13 +109,13 @@
             <keyword String="types" attribute="Type" context="#stay"/>
             <keyword String="constants" attribute="Constant" context="#stay"/>
             <Detect2Chars char="/" char1="/" attribute="Comment" context="Comment"/>
-            <RegExpr String="0b[01]+" attribute="Binary" context="#stay"/>
-            <RegExpr String="0o[0-7]+" attribute="Octal" context="#stay"/>
-            <RegExpr String="0x[0-9a-fA-F]+" attribute="Hex" context="#stay"/>
-            <RegExpr String="[0-9]+" attribute="Decimal" context="#stay"/>
-            <RegExpr String="[0-9]+.[0-9]+" attribute="Float" context="#stay"/>
-            <RegExpr String="[0-9]+.[0-9]+[eE][+-]?[0-9]+" attribute="Float" context="#stay"/>
-            <RegExpr String="[0-9]+.[eE][+-]?[0-9]+" attribute="Float" context="#stay"/>
+            <RegExpr String="\b0b[01]+\b" attribute="Binary" context="#stay"/>
+            <RegExpr String="\b0o[0-7]+\b" attribute="Octal" context="#stay"/>
+            <RegExpr String="\b0x[0-9a-fA-F]+\b" attribute="Hex" context="#stay"/>
+            <RegExpr String="\b[0-9]+\b" attribute="Decimal" context="#stay"/>
+            <RegExpr String="\b[0-9]+\.[0-9]+\b" attribute="Float" context="#stay"/>
+            <RegExpr String="\b[0-9]+\.[0-9]+[eE][\+\-]?[0-9]+\b" attribute="Float" context="#stay"/>
+            <RegExpr String="\b[0-9]+\.[eE][\+\-]?[0-9]+\b" attribute="Float" context="#stay"/>
             <RegExpr String="'(\\([nrt\\'&quot;]|x[0-9a-fA-F]{2})|[^'\\])'" attribute="Character" context="#stay"/>
             <DetectChar char="{" attribute="Symbol" context="#stay" beginRegion="Brace"/>
             <DetectChar char="}" attribute="Symbol" context="#stay" endRegion="Brace"/>
@@ -124,8 +124,8 @@
             <Detect2Chars char="@" char1="&quot;" attribute="String" context="String"/>
             <Detect2Chars char="\" char1="\" attribute="String" context="Multiline String"/>
             <StringDetect String="c\\" attribute="String" context="Multiline String"/>
-            <RegExpr String="[_a-zA-Z][_a-zA-Z0-9]*" attribute="Normal Text" context="#stay"/>
-            <RegExpr String="@[_a-zA-Z][_a-zA-Z0-9]*" attribute="Builtin Function" context="#stay"/>
+            <RegExpr String="\b[_a-zA-Z][_a-zA-Z0-9]*\b" attribute="Normal Text" context="#stay"/>
+            <RegExpr String="@[_a-zA-Z][_a-zA-Z0-9]*\b" attribute="Builtin Function" context="#stay"/>
         </context>
         <context attribute="String" lineEndContext="#stay" name="String">
             <RegExpr String="\\([nrt\\'&quot;]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{6})" attribute="Escape" context="#stay"/>
