@@ -60,7 +60,6 @@
         <item>c_ulonglong</item>
         <item>c_ushort</item>
         <item>c_void</item>
-        <item>error</item>
         <item>f16</item>
         <item>f32</item>
         <item>f64</item>
