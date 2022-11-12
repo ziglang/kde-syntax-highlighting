@@ -1,0 +1,1470 @@
+// Top-level declarations are order-independent:
+|
+Comment
+const print = @import("std").debug.print;
+|    |      |||      ||    |||    ||    |
+Declaration Operator Symbol|Operator    Separator Symbol
+     |       ||       |    | |    ||
+     Normal Text      String Normal Text
+             ||            |      ||
+             Normal Text   Symbol Operator
+              |                    |
+              Builtin Function     Normal Text
+
+|
+Normal Text
+pub fn main() void {
+|  || |    | ||   ||
+Modifier   Symbol Normal Text
+   || |      ||    |
+   Normal Text|    Symbol
+    | |      ||
+    Declaration
+      |      ||
+      Normal Text
+             ||
+             Normal Text
+              |
+              Type
+    // boolean
+|   |
+Normal Text
+    |
+    Comment
+    print("{}\n{}\n{}\n", .{
+|        ||  | | | | | |||||
+Normal Text  Escape| Escape|
+         ||    | | |   |||||
+         Symbol| Escape|Separator Symbol
+          |    |   |   | |||
+          String   String|Operator
+               |       | | |
+               String  String
+                         | |
+                         Normal Text
+                           |
+                           Symbol
+        true and false,
+|       |   ||  ||    |
+Normal Text Normal Text
+        |    |  ||    |
+        Constants|    Separator Symbol
+             |  ||
+             Keyword
+                ||
+                Normal Text
+                 |
+                 Constants
+        true or false,
+|       |   || ||    |
+Normal Text Normal Text
+        |    | ||    |
+        Constants    Separator Symbol
+             | ||
+             Keyword
+               ||
+               Normal Text
+                |
+                Constants
+        !true,
+|       ||   |
+Normal Text  Separator Symbol
+        ||
+        Operator
+         |
+         Constants
+    });
+|   | |
+Normal Text
+    | |
+    Symbol
+      |
+      Separator Symbol
+
+|
+Normal Text
+    // error union
+|   |
+Normal Text
+    |
+    Comment
+    var number_or_error: anyerror!i32 = error.ArgNotFound;
+|   |  |                 |       ||  ||||    ||          |
+Normal Text              Keyword Operator    Operator    Separator Symbol
+    |  |                          |  ||||     |
+    Declaration                   Type|Normal Text
+       |                             || |     |
+       Normal Text                   Normal Text
+                                      | |     |
+                                      Operator|
+                                        |     |
+                                        Keyword
+                                              |
+                                              Normal Text
+
+|
+Normal Text
+    print("\nerror union 2\ntype: {}\nvalue: {!}\n", .{
+|        ||| |            | |       | |         | |||||
+Normal Text| String       Escape    Escape      Escape|
+         |||                |         |           |||||
+         Symbol             String    String      String
+          ||                                       ||||
+          String                                   Separator Symbol
+           |                                        |||
+           Escape                                   Normal Text
+                                                     ||
+                                                     Operator
+                                                      |
+                                                      Symbol
+        @TypeOf(number_or_error), number_or_error,
+|       |      ||              |||               |
+Normal Text    Symbol          Symbol            Separator Symbol
+        |       |               ||
+        Builtin Function        Separator Symbol
+                |                |
+                Normal Text      Normal Text
+    });
+|   | |
+Normal Text
+    | |
+    Symbol
+      |
+      Separator Symbol
+
+|
+Normal Text
+    print("{}\n", .{@TypeOf(bytes)});                   // *const [5:0]u8
+|        ||  | ||||||      ||    |  ||                  |
+Normal Text  Escape|Builtin Function|Normal Text        Comment
+         ||    |||||       ||    |  |
+         Symbol|Separator Symbol Symbol
+          |    | |||       ||       |
+          String Normal Text|       Separator Symbol
+               |  ||       ||
+               String      Symbol
+                  ||        |
+                  Operator  Normal Text
+                   |
+                   Symbol
+    print("{d}\n", .{bytes.len});                       // 5
+|        ||   | ||||||    ||  | ||                      |
+Normal Text   Escape|Normal Text|Normal Text            Comment
+         ||     |||||     ||  | |
+         Symbol String    Operator
+          |      ||||      |  | |
+          String Separator Symbol
+                  |||      |  | |
+                  Normal Text Symbol
+                   ||      |    |
+                   Operator|    Separator Symbol
+                    |      |
+                    Symbol Normal Text
+    print("{}\n", .{'e' == '\x65'});                    // true
+|        ||  | ||||||  || |||   || ||                   |
+Normal Text  Escape|Character   Character               Comment
+         ||    |||||   || |||    | ||
+         Symbol|Separator Symbol Symbol
+          |    | |||   || |||      ||
+          String Normal Text|      Separator Symbol
+               |  ||   || |||       |
+               String  Normal Text  Normal Text
+                  ||    | |||
+                  Operator|Character
+                   |    | | |
+                   Symbol Normal Text
+                        |   |
+                        Operator
+                            |
+                            Escape
+    print("{d}\n", .{'\u{1f4a9}'});                     // 128169
+|        ||   | |||||||        || ||                    |
+Normal Text   Escape|Character Character                Comment
+         ||     ||||| |         | ||
+         Symbol String|         Symbol
+          |      |||| |           ||
+          String Separator Symbol Separator Symbol
+                  ||| |            |
+                  Normal Text      Normal Text
+                   || |
+                   Operator
+                    | |
+                    Symbol
+                      |
+                      Escape
+    print("{d}\n", .{'💯'});                            // 128175
+|        ||   | ||||||   | ||                           |
+Normal Text   Escape|Character                          Comment
+         ||     |||||    | ||
+         Symbol String   Symbol
+          |      ||||      ||
+          String Separator Symbol
+                  |||      ||
+                  Normal Text
+                   ||      ||
+                   Operator|Normal Text
+                    |      |
+                    Symbol Separator Symbol
+    print("{}\n", .{mem.eql(u8, "hello", "h\x65llo")}); // true
+|        ||  | ||||||  ||  || |||      ||| |   |   |  |||
+Normal Text  Escape|Normal Text|String Separator Symbol|Comment
+         ||    |||||   ||  || ||        || |   |   |  ||
+         Symbol|Separator Symbol        Normal Text|  Separator Symbol
+          |    | |||   ||  || ||         | |   |   |   |
+          String Normal Text| Separator Symbol String  Normal Text
+               |  ||   ||  ||  |         | |       |
+               String  Operator|         String    Symbol
+                  ||    |  ||  |           |
+                  Operator Symbol          Escape
+                   |    |   |  |
+                   Symbol   Type
+                        |      |
+                        Normal Text
+                               |
+                               Normal Text
+    print("0x{x}\n", .{"\xff"[0]}); // non-UTF-8 strings are possible with \xNN notation.
+|        ||     | |||||||   ||||  |||
+Normal Text     Escape|String|Decimal
+         ||       ||||| |   || |  |||
+         Symbol   String|   String|Normal Text
+          |        |||| |    | |  | |
+          String   Separator Symbol Comment
+                    ||| |    | |  |
+                    Normal Text|  Separator Symbol
+                     || |    | |
+                     Operator| Symbol
+                      | |    |
+                      Symbol Symbol
+                        |
+                        Escape
+    print("{u}\n", .{'⚡'});
+|        ||   | ||||||  | |
+Normal Text   Escape|Character
+         ||     |||||   | |
+         Symbol String  Symbol
+          |      ||||     |
+          String Separator Symbol
+                  |||     |
+                  Normal Text
+                   ||     |
+                   Operator
+                    |     |
+                    Symbol|
+                          |
+                          Separator Symbol
+
+|
+Normal Text
+    _ = @import("introducing_zig_test.zig");
+|     |||      ||                         ||
+Normal Text    Symbol                     Symbol
+      |||       |                          |
+      Operator  String                     Separator Symbol
+       ||
+       Normal Text
+        |
+        Builtin Function
+}
+|
+Symbol
+
+|
+Normal Text
+// Declare an enum.
+|
+Comment
+const Type = enum {
+|    |     |||   ||
+Declaration|Normal Text
+     |     | |   ||
+     Normal Text Normal Text
+           | |    |
+           Operator
+             |    |
+             Keyword
+                  |
+                  Symbol
+    ok,
+|     |
+Normal Text
+      |
+      Separator Symbol
+    not_ok,
+|         |
+Normal Text
+          |
+          Separator Symbol
+};
+||
+Symbol
+ |
+ Separator Symbol
+
+|
+Normal Text
+test "async skip test" {
+|   ||                ||
+Preprocessor          Normal Text
+    ||                 |
+    Normal Text        Symbol
+     |
+     String
+    var frame = async func();
+|   |  |      |||    |    | |
+Normal Text   Operator    Symbol
+    |  |       ||    |      |
+    Declaration|Async Keyword
+       |       |     |      |
+       Normal Text   Normal Text
+               |            |
+               Normal Text  Separator Symbol
+    const result = await frame;
+|   |    |       |||    |     |
+Normal Text      Operator     Separator Symbol
+    |    |        ||    |
+    Declaration   Normal Text
+         |         |    |
+         Normal Text    Normal Text
+                   |
+                   Async Keyword
+    try std.testing.expect(result == 1);
+|   |  |   ||      ||     ||      | ||||
+Normal Text|Normal Text   Symbol  Operator
+    |  |   |       ||      |        ||||
+    Control Flow   Operator|        Normal Text
+       |   |        |      |         |||
+       Normal Text  Normal Text      Decimal
+           |               |          ||
+           Operator        Normal Text|Separator Symbol
+                                      |
+                                      Symbol
+}
+|
+Symbol
+
+|
+Normal Text
+fn func() i32 {
+| |    | ||  ||
+Declaration  Normal Text
+  |    | ||   |
+  Normal Text Symbol
+       | ||
+       Symbol
+         ||
+         Normal Text
+          |
+          Type
+    suspend {
+|   |      ||
+Normal Text|Symbol
+    |      |
+    Async Keyword
+           |
+           Normal Text
+        resume @frame();
+|       |     ||     | |
+Normal Text   Normal Text
+        |      |     | |
+        Async Keyword| Separator Symbol
+               |     |
+               Builtin Function
+                     |
+                     Symbol
+    }
+|   |
+Normal Text
+    |
+    Symbol
+    return 1;
+|   |     |||
+Normal Text|Separator Symbol
+    |     ||
+    Control Flow
+          ||
+          Normal Text
+           |
+           Decimal
+}
+|
+Symbol
+
+|
+Normal Text
+pub extern "c" fn @"error"() void;
+|  ||     ||  || |||      | ||   |
+Modifier  Normal Text     Symbol Separator Symbol
+   ||      |  || |||        ||
+   Normal Text|Declaration  Normal Text
+    |      |  |  |||         |
+    Modifier  Normal Text    Type
+           |     |||
+           String|Builtin Function
+                 | |
+                 Normal Text
+                   |
+                   String
+pub extern "c" fn @"fstat$INODE64"(fd: c.fd_t, buf: *c.Stat) c_int;
+|  ||     ||  || |||              ||    ||   ||     ||||   |||    |
+Modifier  Normal Text             Symbol|Normal Text|Normal Text  Separator Symbol
+   ||      |  || |||               |    |    ||     | ||   |||
+   Normal Text|Declaration         Normal Text|     Operator|Type
+    |      |  |  |||                    |    ||       ||   ||
+    Modifier  Normal Text               Operator      Operator
+           |     |||                         ||        |   ||
+           String|Builtin Function           Separator Symbol
+                 | |                          |        |   ||
+                 Normal Text                  Normal Text  Symbol
+                   |                                   |    |
+                   String                              Normal Text
+                                                            |
+                                                            Normal Text
+
+|
+Normal Text
+const Color = enum {
+|    |      |||   ||
+Declaration Operator
+     |       ||   ||
+     Normal Text  Normal Text
+             ||    |
+             Normal Text
+              |    |
+              Keyword
+                   |
+                   Symbol
+  red,
+|    |
+Normal Text
+     |
+     Separator Symbol
+  @"really red",
+| ||           |
+Normal Text    Separator Symbol
+  ||
+  Builtin Function
+   |
+   String
+};
+||
+Symbol
+ |
+ Separator Symbol
+const color: Color = .@"really red";
+|    |             |||||           |
+Declaration        Operator        Separator Symbol
+     |              ||||
+     Normal Text    Normal Text
+                     |||
+                     Operator
+                      ||
+                      Builtin Function
+                       |
+                       String
+
+|
+Normal Text
+var y: i32 = add(10, x);
+|  |   |  |||   || || ||
+Declaration|Normal Text|
+   |   |  ||    || || ||
+   Normal Text  Symbol|Separator Symbol
+       |  ||     | || |
+       Type|     Decimal
+          ||       || |
+          Normal Text Symbol
+           |       ||
+           Operator|Normal Text
+                   |
+                   Separator Symbol
+const x: i32 = add(12, 34);
+|    |   |  |||   || ||| ||
+Declaration Normal Text| Symbol
+     |   |   ||   || |||  |
+     Normal Text  Symbol  Separator Symbol
+         |   ||    | |||
+         Type|Normal Text
+             |     | |||
+             Operator|Normal Text
+                   | | |
+                   Decimal
+                     | |
+                     Separator Symbol
+                       |
+                       Decimal
+
+|
+Normal Text
+test "comptime vars" {
+|   ||              ||
+Preprocessor        Normal Text
+    ||               |
+    Normal Text      Symbol
+     |
+     String
+    var x: i32 = 1;
+|   |  |   |  |||||
+Normal Text|  Normal Text
+    |  |   |   ||||
+    Declaration|Normal Text
+       |   |   | ||
+       Normal Text|
+           |   | ||
+           Type| Decimal
+               |  |
+               Operator
+                  |
+                  Separator Symbol
+    comptime var y: i32 = 1;
+|   |       ||  |   |  |||||
+Normal Text Normal Text|Operator
+    |        |  |   |  | |||
+    Preprocessor|   Type Normal Text
+             |  |      |  ||
+             Declaration  Decimal
+                |      |   |
+                Normal Text|
+                       |   |
+                       Normal Text
+                           |
+                           Separator Symbol
+
+|
+Normal Text
+    x += 1;
+|     | |||
+Normal Text
+      | |||
+      Operator
+        |||
+        Normal Text
+         ||
+         Decimal
+          |
+          Separator Symbol
+    y += 1;
+|     | |||
+Normal Text
+      | |||
+      Operator
+        |||
+        Normal Text
+         ||
+         Decimal
+          |
+          Separator Symbol
+
+|
+Normal Text
+    try expect(x == 2);
+|   |  |      || | ||||
+Normal Text   Symbol|Symbol
+    |  |       | | || |
+    Control Flow Operator
+       |       |   || |
+       Normal Text Normal Text
+               |    | |
+               Normal Text
+                    | |
+                    Decimal
+                      |
+                      Separator Symbol
+    try expect(y == 2);
+|   |  |      || | ||||
+Normal Text   Symbol|Symbol
+    |  |       | | || |
+    Control Flow Operator
+       |       |   || |
+       Normal Text Normal Text
+               |    | |
+               Normal Text
+                    | |
+                    Decimal
+                      |
+                      Separator Symbol
+
+|
+Normal Text
+    if (y != 2) {
+|   | ||| | |||||
+Normal Text Normal Text
+    | ||| |  ||||
+    Control Flow|
+      ||| |  ||||
+      Normal Text
+       || |  ||||
+       Symbol|Symbol
+        | |  | ||
+        Normal Text
+          |  | ||
+          Operator
+             | ||
+             Decimal
+               ||
+               Normal Text
+                |
+                Symbol
+        // This compile error never triggers because y is a comptime variable,
+|       |
+Normal Text
+        |
+        Comment
+        // and so `y != 2` is a comptime value, and this if is statically evaluated.
+|       |
+Normal Text
+        |
+        Comment
+        @compileError("wrong y value");
+|       |            ||              ||
+Normal Text          Symbol          Symbol
+        |             |               |
+        Builtin Function              Separator Symbol
+                      |
+                      String
+    }
+|   |
+Normal Text
+    |
+    Symbol
+}
+|
+Symbol
+
+|
+Normal Text
+const decimal_int = 98222;
+|    |            |||    |
+Declaration       Operator
+     |             ||    |
+     Normal Text   Normal Text
+                    |    |
+                    Decimal
+                         |
+                         Separator Symbol
+const hex_int = 0xff;
+|    |        |||   |
+Declaration   Operator
+     |         ||   |
+     Normal Text|   Separator Symbol
+               ||
+               Normal Text
+                |
+                Hex
+const another_hex_int = 0xFF;
+|    |                |||   |
+Declaration           Operator
+     |                 ||   |
+     Normal Text       Normal Text
+                        |   |
+                        Hex Separator Symbol
+const octal_int = 0o755;
+|    |          |||    |
+Declaration     Operator
+     |           ||    |
+     Normal Text Normal Text
+                  |    |
+                  Octal|
+                       |
+                       Separator Symbol
+const binary_int = 0b11110000;
+|    |           |||         |
+Declaration      Operator    Separator Symbol
+     |            ||
+     Normal Text  Normal Text
+                   |
+                   Binary
+
+|
+Normal Text
+// underscores may be placed between two digits as a visual separator
+|
+Comment
+const one_billion = 1_000_000_000;
+|    |            |||            |
+Declaration       Operator       Separator Symbol
+     |             ||
+     Normal Text   Normal Text
+                    |
+                    Decimal
+const binary_mask = 0b1_1111_1111;
+|    |            |||            |
+Declaration       Operator       Separator Symbol
+     |             ||
+     Normal Text   Normal Text
+                    |
+                    Binary
+const permissions = 0o7_5_5;
+|    |            |||      |
+Declaration       Operator Separator Symbol
+     |             ||
+     Normal Text   Normal Text
+                    |
+                    Octal
+const big_address = 0xFF80_0000_0000_0000;
+|    |            |||                    |
+Declaration       Operator               Separator Symbol
+     |             ||
+     Normal Text   Normal Text
+                    |
+                    Hex
+
+|
+Normal Text
+const floating_point = 123.0E+77;
+|    |               |||        |
+Declaration          Operator   Separator Symbol
+     |                ||
+     Normal Text      Normal Text
+                       |
+                       Float
+const another_float = 123.0;
+|    |              |||    |
+Declaration         Operator
+     |               ||    |
+     Normal Text     Normal Text
+                      |    |
+                      Float|
+                           |
+                           Separator Symbol
+const yet_another = 123.0e+77;
+|    |            |||        |
+Declaration       Operator   Separator Symbol
+     |             ||
+     Normal Text   Normal Text
+                    |
+                    Float
+
+|
+Normal Text
+const hex_floating_point = 0x103.70p-5;
+|    |                   |||          |
+Declaration              Operator     Separator Symbol
+     |                    ||
+     Normal Text          Normal Text
+                           |
+                           Hex Float
+const another_hex_float = 0x103.70;
+|    |                  |||       |
+Declaration             Operator  Separator Symbol
+     |                   ||
+     Normal Text         Normal Text
+                          |
+                          Hex Float
+const yet_another_hex_float = 0x103.70P-5;
+|    |                      |||          |
+Declaration                 Operator     Separator Symbol
+     |                       ||
+     Normal Text             Normal Text
+                              |
+                              Hex Float
+
+|
+Normal Text
+// underscores may be placed between two digits as a visual separator
+|
+Comment
+const lightspeed = 299_792_458.000_000;
+|    |           |||                  |
+Declaration      Operator             Separator Symbol
+     |            ||
+     Normal Text  Normal Text
+                   |
+                   Float
+const nanosecond = 0.000_000_001;
+|    |           |||            |
+Declaration      Operator       Separator Symbol
+     |            ||
+     Normal Text  Normal Text
+                   |
+                   Float
+const more_hex = 0x1234_5678.9ABC_CDEFp-10;
+|    |         |||                        |
+Declaration    Operator                   Separator Symbol
+     |          ||
+     Normal Text|Hex Float
+                |
+                Normal Text
+
+|
+Normal Text
+const A = error{One};
+|    |  |||    ||  ||
+Declaration    Symbol
+     |  |||     |  ||
+     Normal Text|  Symbol
+        |||     |   |
+        Operator|   Separator Symbol
+         ||     |
+         Normal Text
+          |     |
+          Keyword
+                |
+                Normal Text
+const B = error{Two};
+|    |  |||    ||  ||
+Declaration    Symbol
+     |  |||     |  ||
+     Normal Text|  Symbol
+        |||     |   |
+        Operator|   Separator Symbol
+         ||     |
+         Normal Text
+          |     |
+          Keyword
+                |
+                Normal Text
+(A || B) == error{One, Two}
+|| | | ||| ||    ||  ||   |
+Symbol Symbol    Symbol   Symbol
+ | | |  || ||     |  ||
+ Normal Text|     Normal Text
+   | |  || ||        ||
+   Operator|Keyword  Separator Symbol
+     |  || |          |
+     Normal Text      Normal Text
+        || |
+        Normal Text
+         | |
+         Operator
+           |
+           Normal Text
+
+|
+Normal Text
+const x: u32 = 1234;
+|    |   |  ||||   |
+Declaration Normal Text
+     |   |   |||   |
+     Normal Text   Separator Symbol
+         |   |||
+         Type|Normal Text
+             | |
+             Operator
+               |
+               Decimal
+const ptr = &x;
+|    |    |||||
+Declaration|Operator
+     |    || ||
+     Normal Text
+          || ||
+          Operator
+           | ||
+           Normal Text
+             ||
+             Normal Text
+              |
+              Separator Symbol
+ptr.* == 1234
+|  | || ||
+Normal Text
+   | || ||
+   Operator
+     || ||
+     Normal Text
+      | ||
+      Operator
+        ||
+        Normal Text
+         |
+         Decimal
+
+|
+Normal Text
+// get the size of an array
+|
+Comment
+comptime {
+|       ||
+Preprocessor
+        ||
+        Normal Text
+         |
+         Symbol
+    assert(message.len == 5);
+|   |     ||      ||   | ||||
+Normal Text|      Operator|Symbol
+    |     ||       |   | || |
+    Preprocessor   Normal Text
+          ||           | || |
+          Symbol       Operator
+           |             || |
+           Normal Text   Normal Text
+                          | |
+                          Decimal
+                            |
+                            Separator Symbol
+}
+|
+Symbol
+
+|
+Normal Text
+test "iterate over an array" {
+|   ||                      ||
+Preprocessor                Normal Text
+    ||                       |
+    Normal Text              Symbol
+     |
+     String
+    var sum: usize = 0;
+|   |  |     |    |||||
+Normal Text  Type Normal Text
+    |  |           ||||
+    Declaration    Operator
+       |            |||
+       Normal Text  Normal Text
+                     ||
+                     Decimal
+                      |
+                      Separator Symbol
+    for (message) |byte| {
+|   |  |||      ||||   |||
+Normal Text     Symbol Operator
+    |  |||       |||    ||
+    Control Flow Normal Text
+       |||        ||    ||
+       Normal Text|Normal Text
+        ||        |     ||
+        Symbol    Operator
+         |              ||
+         Normal Text    Normal Text
+                         |
+                         Symbol
+        sum += byte;
+|           | |    |
+Normal Text Operator
+              |    |
+              Normal Text
+                   |
+                   Separator Symbol
+    }
+|   |
+Normal Text
+    |
+    Symbol
+    try expect(sum == 'h' + 'e' + 'l' * 2 + 'o');
+|   |  |      ||   | ||  ||||  ||||  ||||||||  ||
+Normal Text   Symbol Normal Text|Normal Text|  Symbol
+    |  |       |   |  |  ||||  || |  ||||||||   |
+    Control Flow   Operator|Character|Operator  Separator Symbol
+       |       |      |  |||   || |  | ||||||
+       Normal Text    Character|Operator|Normal Text
+               |         |||   |  |  | || |||
+               Normal Text|Normal Text Normal Text
+                         ||    |  |  |  | |||
+                         Normal Text Normal Text
+                          |    |  |     | |||
+                          Operator|     Decimal
+                               |  |       |||
+                               Normal Text|Normal Text
+                                  |       | |
+                                  Character Character
+                                          |
+                                          Operator
+}
+|
+Symbol
+
+|
+Normal Text
+// use compile-time code to initialize an array
+|
+Comment
+var fancy_array = init: {
+|  |            ||      |
+Declaration     Operator|
+   |             |      |
+   Normal Text   Normal Text
+                        |
+                        Symbol
+    var initial_value: [10]Point = undefined;
+|   |  |               || ||     |||        |
+Normal Text            Symbol    Operator   Separator Symbol
+    |  |                | ||      ||
+    Declaration         Decimal   Normal Text
+       |                  ||       |
+       Normal Text        Symbol   Constants
+                           |
+                           Normal Text
+    for (initial_value) |*pt, i| {
+|   |  |||            ||| | || |||
+Normal Text           Symbol|Normal Text
+    |  |||             || | |  |||
+    Control Flow       Normal Text
+       |||              | | |  |||
+       Normal Text      Operator|Symbol
+        ||                | |  ||
+        Symbol            Normal Text
+         |                  |  ||
+         Normal Text        Separator Symbol
+                               ||
+                               Operator
+                                |
+                                Normal Text
+        pt.* = Point{
+|         | |||     |
+Normal Text Normal Text
+          |  ||     |
+          Operator  Symbol
+             ||
+             Operator
+              |
+              Normal Text
+            .x = @intCast(i32, i),
+|           || |||       ||  || ||
+Normal Text Operator     Symbol Symbol
+             | |||        |  ||  |
+             Normal Text  Type|  Separator Symbol
+               |||           ||
+               Operator      Separator Symbol
+                ||            |
+                Normal Text   Normal Text
+                 |
+                 Builtin Function
+            .y = @intCast(i32, i) * 2,
+|           || |||       ||  || ||||||
+Normal Text Operator     Symbol Symbol
+             | |||        |  ||  |||||
+             Normal Text  Type|  Normal Text
+               |||           ||   ||||
+               Operator      Separator Symbol
+                ||            |   ||||
+                Normal Text   Normal Text
+                 |                ||||
+                 Builtin Function Operator
+                                   |||
+                                   Normal Text
+                                    ||
+                                    Decimal
+                                     |
+                                     Separator Symbol
+        };
+|       ||
+Normal Text
+        ||
+        Symbol
+         |
+         Separator Symbol
+    }
+|   |
+Normal Text
+    |
+    Symbol
+    break :init initial_value;
+|   |    |                   |
+Normal Text                  Separator Symbol
+    |    |
+    Control Flow
+         |
+         Normal Text
+};
+||
+Symbol
+ |
+ Separator Symbol
+
+|
+Normal Text
+test "switch on non-exhaustive enum" {
+|   ||                              ||
+Preprocessor                        Normal Text
+    ||                               |
+    Normal Text                      Symbol
+     |
+     String
+    try expect(result);
+|   |  |      ||     ||
+Normal Text   Symbol Symbol
+    |  |       |      |
+    Control Flow      Separator Symbol
+       |       |
+       Normal Text
+               |
+               Normal Text
+    const is_one = switch (number) {
+|   |    |       |||     |||     |||
+Normal Text      Operator|Symbol Symbol
+    |    |        ||     | |      ||
+    Declaration   Normal Text     Normal Text
+         |         |     | |       |
+         Normal Text     Normal Text
+                   |       |       |
+                   Control Flow    Symbol
+                           |
+                           Normal Text
+        .one => true,
+|       ||   | ||   |
+Normal Text  Operator
+        ||     ||   |
+        Operator|   Separator Symbol
+         |     ||
+         Normal Text
+               ||
+               Normal Text
+                |
+                Constants
+        else => false,
+|       |   || ||    |
+Normal Text Normal Text
+        |    | ||    |
+        Control Flow Separator Symbol
+             | ||
+             Operator
+               ||
+               Normal Text
+                |
+                Constants
+    };
+|   ||
+Normal Text
+    ||
+    Symbol
+     |
+     Separator Symbol
+    try expect(is_one);
+|   |  |      ||     ||
+Normal Text   Symbol Symbol
+    |  |       |      |
+    Control Flow      Separator Symbol
+       |       |
+       Normal Text
+               |
+               Normal Text
+
+|
+Normal Text
+    if (a != b) {
+|   | ||| | | |||
+Normal Text Normal Text
+    | ||| |   |||
+    Control Flow|
+      ||| |   |||
+      Normal Text
+       || |   |||
+       Symbol Symbol
+        | |    ||
+        Normal Text
+          |    ||
+          Operator
+               ||
+               Normal Text
+                |
+                Symbol
+        try expect(true);
+|       |  |      ||   ||
+Normal Text|      Symbol|
+        |  |       |   ||
+        Control Flow   Symbol
+           |       |    |
+           Normal Text  Separator Symbol
+                   |
+                   Constants
+    } else if (a == 9) {
+|   |||   || ||| | |||||
+Normal Text| Normal Text
+    |||   ||  || | |||||
+    Symbol|Control Flow|
+     ||   |   || | |||||
+     Normal Text Operator
+      |   |   ||   |||||
+      Control Flow Normal Text
+          |   ||    ||||
+          Normal Text|Normal Text
+              ||    || |
+              Symbol|Symbol
+               |    |  |
+               Normal Text
+                    |  |
+                    Decimal
+                       |
+                       Symbol
+        unreachable;
+|       |          |
+Normal Text        Separator Symbol
+        |
+        Control Flow
+    } else {
+|   |||   ||
+Normal Text|
+    |||   ||
+    Symbol|Symbol
+     ||   |
+     Normal Text
+      |   |
+      Control Flow
+          |
+          Normal Text
+        unreachable;
+|       |          |
+Normal Text        Separator Symbol
+        |
+        Control Flow
+    }
+|   |
+Normal Text
+    |
+    Symbol
+}
+|
+Symbol
+
+|
+Normal Text
+fn deferErrorExample(is_error: bool) !void {
+| |                 ||         |   ||||   ||
+Declaration         Symbol     Type|Normal Text
+  |                  |             | ||   ||
+  Normal Text        Normal Text   Symbol Normal Text
+                                     ||    |
+                                     Operator
+                                      |    |
+                                      Type Symbol
+    print("\nstart of function\n", .{});
+|        ||| |                | |||||  |
+Normal Text| String           Escape|  Separator Symbol
+         |||                    |||||
+         Symbol                 String
+          ||                     ||||
+          String                 Separator Symbol
+           |                      |||
+           Escape                 Normal Text
+                                   ||
+                                   Operator
+                                    |
+                                    Symbol
+
+|
+Normal Text
+    // This will always be executed on exit
+|   |
+Normal Text
+    |
+    Comment
+    defer {
+|   |    ||
+Normal Text
+    |    ||
+    Control Flow
+         ||
+         Normal Text
+          |
+          Symbol
+        print("end of function\n", .{});
+|            ||               | |||||  |
+Normal Text  Symbol           Escape|  Separator Symbol
+              |                 |||||
+              String            String
+                                 ||||
+                                 Separator Symbol
+                                  |||
+                                  Normal Text
+                                   ||
+                                   Operator
+                                    |
+                                    Symbol
+    }
+|   |
+Normal Text
+    |
+    Symbol
+
+|
+Normal Text
+    errdefer {
+|   |       ||
+Normal Text Normal Text
+    |        |
+    Control Flow
+             |
+             Symbol
+        print("encountered an error!\n", .{});
+|            ||                     | |||||  |
+Normal Text  Symbol                 Escape|  Separator Symbol
+              |                       |||||
+              String                  String
+                                       ||||
+                                       Separator Symbol
+                                        |||
+                                        Normal Text
+                                         ||
+                                         Operator
+                                          |
+                                          Symbol
+    }
+|   |
+Normal Text
+    |
+    Symbol
+}
+|
+Symbol
+
+|
+Normal Text
+pub fn syscall3(number: usize, arg1: usize, arg2: usize, arg3: usize) usize {
+|  || |        ||       |    ||      |    ||      |    ||      |    |||    ||
+Modifier       Symbol   Type Separator Symbol     Type Separator Symbol    Normal Text
+   || |         |             |      |    ||            |      |    |||     |
+   Normal Text  Normal Text   Normal Text Separator Symbol     Type Symbol  Symbol
+    | |                              |     |            |            ||
+    Declaration                      Type  Normal Text  Normal Text  Normal Text
+      |                                                               |
+      Normal Text                                                     Type
+    return asm volatile ("syscall"
+|   |     ||  ||       |||
+Normal Text|  Normal Text|
+    |     ||   |       |||
+    Control Flow       Normal Text
+          ||   |        ||
+          Normal Text   Symbol
+           |   |         |
+           Keyword       String
+               |
+               Modifier
+        : [ret] "={rax}" (-> usize)
+|         ||  |||       ||| ||    |
+Normal Text|  Symbol    Normal Text
+          ||   ||        || ||    |
+          Symbol|        Symbol   Symbol
+           |   ||         | ||
+           Normal Text    Operator
+               ||           ||
+               Normal Text  Normal Text
+                |            |
+                String       Type
+        : [number] "{rax}" (number),
+|         ||     |||      |||     ||
+Normal Text|     Symbol   Normal Text
+          ||      ||       ||     ||
+          Symbol  Normal Text     Symbol
+           |       |       ||      |
+           Normal Text     Symbol  Separator Symbol
+                   |        |
+                   String   Normal Text
+          [arg1] "{rdi}" (arg1),
+|         ||   |||      |||   ||
+Normal Text|   Symbol   Normal Text
+          ||    ||       ||   ||
+          Symbol|String  Symbol|
+           |    |         |   ||
+           Normal Text    Normal Text
+                |             ||
+                Normal Text   Symbol
+                               |
+                               Separator Symbol
+          [arg2] "{rsi}" (arg2),
+|         ||   |||      |||   ||
+Normal Text|   Symbol   Normal Text
+          ||    ||       ||   ||
+          Symbol|String  Symbol|
+           |    |         |   ||
+           Normal Text    Normal Text
+                |             ||
+                Normal Text   Symbol
+                               |
+                               Separator Symbol
+          [arg3] "{rdx}" (arg3)
+|         ||   |||      |||   |
+Normal Text|   Symbol   Normal Text
+          ||    ||       ||   |
+          Symbol|String  Symbol
+           |    |         |   |
+           Normal Text    Normal Text
+                |             |
+                Normal Text   Symbol
+        : "rcx", "r11"
+|         |    |||
+Normal Text    Separator Symbol
+          |     ||
+          String|String
+                |
+                Normal Text
+    );
+|   ||
+Normal Text
+    ||
+    Symbol
+     |
+     Separator Symbol
+}
+|
+Symbol
+
+|
+Normal Text
+comptime {
+|       ||
+Preprocessor
+        ||
+        Normal Text
+         |
+         Symbol
+    asm (
+|   |  ||
+Normal Text
+    |  ||
+    Keyword
+       ||
+       Normal Text
+        |
+        Symbol
+        \\.global my_func;
+|       | |
+Normal Text
+        | |
+        String
+          |
+          Multiline String
+        \\.type my_func, @function;
+|       | |
+Normal Text
+        | |
+        String
+          |
+          Multiline String
+        \\my_func:
+|       | |
+Normal Text
+        | |
+        String
+          |
+          Multiline String
+        \\  lea (%rdi,%rsi,1),%eax
+|       | |
+Normal Text
+        | |
+        String
+          |
+          Multiline String
+        \\  retq
+|       | |
+Normal Text
+        | |
+        String
+          |
+          Multiline String
+    );
+|   ||
+Normal Text
+    ||
+    Symbol
+     |
+     Separator Symbol
+}
+|
+Symbol
+
+|
+Normal Text
+extern fn my_func(a: i32, b: i32) i32;
+|     || |       ||  |  ||   |  |||  |
+Modifier Normal Text Type|   Type|Type
+      ||         ||     ||      ||   |
+      Normal Text|Normal Text   Symbol
+       |         |      ||       |   |
+       Declaration      Separator Symbol
+                 |       |       |   |
+                 Symbol  Normal Text Separator Symbol
+                                 |
+                                 Normal Text
